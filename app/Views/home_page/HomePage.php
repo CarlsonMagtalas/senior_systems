@@ -10,5 +10,6 @@
     <?php
         include('Header.php');
     ?>
+    <img class="w-full p-0 blur-sm" src="<?= base_url() ?>images/munisipyobckgrnd.jpg" alt="">
 </body>
 </html>
