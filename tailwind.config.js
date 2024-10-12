@@ -5,11 +5,11 @@ module.exports = {
   content: ["./app/Views/**/*.php"],
   theme: {
     colors: {
-      "primary": '#2F27CE',
-      "background": '#FBFBFE',
-      "accent": '#433BFF',
-      "text": '#050315',
-      "secondary": '#DEDCFF'
+      "primary": '#01AD01',
+      "background": '#F5FBF2',
+      "accent": '#39C62A',
+      "text": '#1D1A06',
+      "secondary": '#333333'
     },
     extend: {},
   },
