@@ -12,4 +12,11 @@ class Auth extends BaseController {
     public function signup() {
         return view('auth/Signup');
     }
+
+    public function verify() {
+        helper('csrf');
+        
+        $email = $this->request->getPost('email');
+
+    }
 }
