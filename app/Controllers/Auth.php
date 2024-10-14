@@ -14,9 +14,7 @@ class Auth extends BaseController {
     }
 
     public function verify() {
-        helper('csrf');
-        
-        $email = $this->request->getPost('email');
-
+        $post_data = $this->request->getPost();
+        return json_encode(['success' => true, 'message' => $post_data['email']]);
     }
 }
