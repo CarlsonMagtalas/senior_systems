@@ -34,7 +34,7 @@
             <div class="flex flex-col gap-3">
                 <button class="w-full block text-xl rounded-lg bg-primary text-background lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]">Login</button>
                 <p class="text-center">or</p>
-                <a class="w-full text-xl grid place-items-center rounded-lg bg-secondary text-background text-center lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" href="">Register</a>
+                <a class="w-full text-xl grid place-items-center rounded-lg bg-secondary text-background text-center lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" href="signup">Register</a>
             </div>
         </form>
     </div>
@@ -54,9 +54,12 @@
                 processData: false,
                 contentType: false,
                 success: (response) => {
-                    let { data } = response;
-                    let user = [...data];
-                    console.log(user.senior_id);
+                    let { success, message } = response;
+                    if(success){
+                        window.location.href = '<?= base_url() ?>dashboard';
+                    } else {
+                        alert("Login failed, incorrect credentials");
+                    }
                 },
                 error: (error) => {
                     console.log(error);

@@ -20,6 +20,6 @@ class Users extends Model
             return false;
         }
 
-        return $this->where('senior_email', $formData['email'])->find();
+        return $this->where('senior_email', $formData['email'])->first();
     }
 }

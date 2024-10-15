@@ -12,7 +12,7 @@
 <body class="overflow-hidden">
     <img class="absolute z-0 blur-sm scale-150 translate-x-11 translate-y-16" src="<?= base_url() ?>images/munisipyobckgrnd.jpg" alt="munisipyo_background.jpg">
     <div class="w-full lg:mt-12 min-h-[550px] grid  justify-center relative z-10">
-        <form class="bg-background rounded-lg pt-6 w-full flex flex-col items-center lg:gap-6 lg:max-w-[420px] lg:min-w-[414px]" action="register" method="post">
+        <form id="signup-form" class="bg-background rounded-lg pt-6 w-full flex flex-col items-center lg:gap-6 lg:max-w-[420px] lg:min-w-[414px]" action="register" method="post">
             <?= csrf_field() ?>
             <img class="w-[78px]" src="<?= base_url() ?>images/munisipyo.png" alt="munisipyo_logo">
             <!-- Title -->
@@ -36,5 +36,32 @@
         </form>
     </div>
 </body>
+
+<script>
+    $(document).ready(() => {
+        console.log("jquery is working");
+        let signForm = $('#signup-form');
+
+        signForm.on('submit', (event) => {
+            event.preventDefault();
+            let formData = new FormData(signForm[0]);
+
+            $.ajax({
+                url: 'signup',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: (response) => {
+                    console.log(response);
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            })
+            console.log(formData);
+        });
+    });
+</script>
 
 </html>
