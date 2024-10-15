@@ -54,14 +54,15 @@
                 processData: false,
                 contentType: false,
                 success: (response) => {
-                    console.log(response);
+                    let { data } = response;
+                    let user = [...data];
+                    console.log(user.senior_id);
                 },
                 error: (error) => {
                     console.log(error);
                 }
             })
 
-            console.log(formData);
         })
     });
 </script>
