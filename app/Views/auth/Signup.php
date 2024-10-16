@@ -22,9 +22,9 @@
 
             <!-- Input Fields -->
             <div class="flex flex-col gap-[15px]">
-                <input class="w-full outline outline-1 pl-2 lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" type="text" name="email" placeholder="Email">
-                <input class="w-full outline outline-1 pl-2 lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" type="password" name="password" placeholder="Password">
-                <input class="w-full outline outline-1 pl-2 lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" type="password" name="con_pass" placeholder="Confirm Password">
+                <input class="w-full outline outline-1 pl-2 lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" type="text" id="email" name="email" placeholder="Email">
+                <input class="w-full outline outline-1 pl-2 lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" type="password" id="password" name="password" placeholder="Password">
+                <input class="w-full outline outline-1 pl-2 lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" type="password" id="con-password" name="con_pass" placeholder="Confirm Password">
             </div>
 
             <!-- Buttons -->
@@ -36,30 +36,34 @@
         </form>
     </div>
 </body>
-
 <script>
     $(document).ready(() => {
         console.log("jquery is working");
-        let signForm = $('#signup-form');
+        let signForm = $("#signup-form");
 
-        signForm.on('submit', (event) => {
+        signForm.on("submit", (event) => {
             event.preventDefault();
             let formData = new FormData(signForm[0]);
 
-            $.ajax({
-                url: 'signup',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: (response) => {
-                    console.log(response);
-                },
-                error: (error) => {
-                    console.log(error);
-                }
-            })
-            console.log(formData);
+            if ($('#password').val() == $('#con-password').val()) {
+                console.log("the passwords match");
+                $.ajax({
+                    url: "signup",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: (response) => {
+                        console.log(response, response.csrf_test_name);
+                        $('input[name="<?= csrf_token() ?>"]').val(response.csrf_test_name);
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    },
+                });
+            } else {
+                alert("passwords do not match try again");
+            }
         });
     });
 </script>

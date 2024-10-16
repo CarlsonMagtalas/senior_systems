@@ -40,34 +40,5 @@
     </div>
 </body>
 
-<script>
-    $(document).ready(() => {
-        console.log("jquery is working");
-
-        $('#login-form').on('submit', (event) => {
-            event.preventDefault();
-            let formData = new FormData($('#login-form')[0]);
-            $.ajax({
-                url: 'login',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: (response) => {
-                    let { success, message } = response;
-                    if(success){
-                        window.location.href = '<?= base_url() ?>dashboard';
-                    } else {
-                        alert("Login failed, incorrect credentials");
-                    }
-                },
-                error: (error) => {
-                    console.log(error);
-                }
-            })
-
-        })
-    });
-</script>
-
+<script src="<?= base_url() ?>js/login.js"></script>
 </html>
