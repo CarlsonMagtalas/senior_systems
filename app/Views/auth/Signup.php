@@ -12,7 +12,7 @@
 <body class="overflow-hidden">
     <img class="absolute z-0 blur-sm scale-150 translate-x-11 translate-y-16" src="<?= base_url() ?>images/munisipyobckgrnd.jpg" alt="munisipyo_background.jpg">
     <div class="w-full lg:mt-12 min-h-[550px] grid  justify-center relative z-10">
-        <form id="signup-form" class="bg-background rounded-lg pt-6 w-full flex flex-col items-center lg:gap-6 lg:max-w-[420px] lg:min-w-[414px]" action="register" method="post">
+        <form id="signup-form" class="bg-background rounded-lg pl-3 pr-3 pt-6 w-full flex flex-col items-center lg:gap-6 lg:max-w-[420px] lg:min-w-[414px]" action="register" method="post">
             <?= csrf_field() ?>
             <img class="w-[78px]" src="<?= base_url() ?>images/munisipyo.png" alt="munisipyo_logo">
             <!-- Title -->
@@ -20,18 +20,38 @@
                 <h1 class="text-2xl">Signup</h1>
             </div>
 
-            <!-- Input Fields -->
-            <div class="flex flex-col gap-[15px]">
-                <input class="w-full outline outline-1 pl-2 lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" type="text" id="email" name="email" placeholder="Email">
-                <input class="w-full outline outline-1 pl-2 lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" type="password" id="password" name="password" placeholder="Password">
-                <input class="w-full outline outline-1 pl-2 lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" type="password" id="con-password" name="con_pass" placeholder="Confirm Password">
+            <div class="w-full bg-secondary">
+                <div id="progress" class=" transition-transform w-[25%] h-3 bg-primary"></div>
             </div>
 
-            <!-- Buttons -->
-            <div class="flex flex-col gap-3">
-                <button class="w-full block text-xl rounded-lg bg-primary text-background lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]">Register</button>
-                <p class="text-center">have an account?</p>
-                <a class="w-full text-xl grid place-items-center rounded-lg bg-secondary text-background text-center lg:min-w-[255px] lg:max-w-[260px] lg:min-h-[45px] lg:max-h-[50px]" href="">Login</a>
+            <!-- TAB 1 -->
+            <div id="tab-1" class="grid grid-cols-2 grid-rows-3 gap-2 transition-opacity duration-300">
+                <input type="text" name="first_name" class="outline outline-1 pl-2" placeholder="First Name">
+                <input type="text" name="middle_name" class="outline outline-1 pl-2" placeholder="Middle Name">
+                <input type="text" name="last_name" class="outline outline-1 pl-2" placeholder="Last Name">
+                <input type="text" name="extension" class="outline outline-1 pl-2" placeholder="Suffix">
+            </div>
+
+            <!-- TAB 2 -->
+            <div id="tab-2" class="hidden opacity-0 transition-opacity duration-300">
+                <h1>Tab 2</h1>
+                <input type="text" name="2">
+            </div>
+
+            <!-- TAB 3 -->
+            <div id="tab-3" class="hidden opacity-0 transition-opacity duration-300">
+                <h1>Tab 3</h1>
+                <input type="text" name="3">
+            </div>
+
+            <!-- TAB 4 -->
+            <div id="tab-4" class="hidden opacity-0 transition-opacity duration-300">
+                <h1>Tab 4</h1>
+                <input type="text" name="4">
+            </div>
+            <div class="flex gap-4">
+                <button type="button" id="prev" value="prev" class="bg-primary text-background rounded-lg pt-3 pb-3 pl-2 pr-2">Return</button>
+                <button type="button" id="next" value="next" class="bg-primary text-background rounded-lg pt-3 pb-3 pl-2 pr-2">Next</button>
             </div>
         </form>
     </div>
@@ -40,31 +60,84 @@
     $(document).ready(() => {
         console.log("jquery is working");
         let signForm = $("#signup-form");
+        let defaultTab = 1;
+        let prev = $('#prev');
+        let next = $('#next');
+        let tabs = $("[id^='tab-']");
+        let progressBar = $('#progress');
+        let progress = 0;
 
         signForm.on("submit", (event) => {
             event.preventDefault();
             let formData = new FormData(signForm[0]);
 
-            if ($('#password').val() == $('#con-password').val()) {
-                console.log("the passwords match");
-                $.ajax({
-                    url: "signup",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: (response) => {
-                        console.log(response, response.csrf_test_name);
-                        $('input[name="<?= csrf_token() ?>"]').val(response.csrf_test_name);
-                    },
-                    error: (error) => {
-                        console.log(error);
-                    },
-                });
-            } else {
-                alert("passwords do not match try again");
-            }
+            // if ($('#password').val() == $('#con-password').val()) {
+            //     console.log("the passwords match");
+            //     $.ajax({
+            //         url: "signup",
+            //         type: "POST",
+            //         data: formData,
+            //         processData: false,
+            //         contentType: false,
+            //         success: (response) => {
+            //             console.log(response, response.csrf_test_name);
+            //             $('input[name="<?= csrf_token() ?>"]').val(response.csrf_test_name);
+            //         },
+            //         error: (error) => {
+            //             console.log(error);
+            //         },
+            //     });
+            // } else {
+            //     alert("passwords do not match try again");
+            // }
+
+            console.log(formData);
         });
+
+        function updateProgress(newProgress) {
+            progressBar.css('width', `${newProgress}%`);
+            progress = newProgress;
+        }
+
+        function onClick(e) {
+            if (e.target.value == 'next') {
+                ++defaultTab;
+                if (defaultTab > 4) {
+                    if (confirm('Please make sure all the information provided is correct')) {
+                        signForm.submit();
+                    } else {
+                        defaultTab = 4;
+                    }
+                } else {
+                    $(`#tab-${defaultTab - 1}`).addClass('hidden').removeClass('opacity-150').addClass('opacity-0').hide();
+                    $(`#tab-${defaultTab}`).removeClass('hidden').removeClass('opacity-0').addClass('opacity-150').show();
+                }
+            } else if (e.target.value == 'prev') {
+                --defaultTab;
+                if (defaultTab < 1) {
+                    if (confirm('Return to Login?')) {
+                        window.location.href = 'login';
+                    } else {
+                        defaultTab = 1;
+                    }
+                } else {
+                    $(`#tab-${defaultTab + 1}`).addClass('hidden').removeClass('opacity-150').addClass('opacity-0').hide();
+                    $(`#tab-${defaultTab}`).removeClass('hidden').removeClass('opacity-0').addClass('opacity-150').show();
+                }
+            }
+            progress = defaultTab / tabs.length * 100;
+            updateButtonText();
+            updateProgress(progress);
+            console.log(defaultTab);
+        }
+
+        function updateButtonText() {
+            defaultTab == 4 ? next.text('Submit') : next.text('Next');
+            defaultTab == 1 ? prev.text('Return') : prev.text('Back');
+        }
+
+        next.on('click', onClick);
+        prev.on('click', onClick);
     });
 </script>
 
