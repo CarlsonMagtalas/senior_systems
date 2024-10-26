@@ -32,7 +32,7 @@
                 <!-- Full Name Fields -->
 
                 <!-- Address Fields -->
-                <?= view('auth/components/Address') ?>
+                <?= view('auth/components/Address', $address) ?>
                 <!-- Address Fields -->
 
                 <!-- Birth Information -->
@@ -42,7 +42,7 @@
 
             <!-- TAB 2 -->
             <div id="tab-2" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[250px] lg:max-h-[255px] transition-opacity duration-300">
-
+                
             </div>
 
             <!-- TAB 3 -->

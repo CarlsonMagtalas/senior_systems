@@ -2,7 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Models\Barangay;
+use App\Models\Municipality;
+use App\Models\Province;
 use App\Models\Users;
+use App\Models\Purok;
+
+$db = \Config\Database::connect();
 
 class Auth extends BaseController
 {
@@ -21,7 +27,28 @@ class Auth extends BaseController
 
     public function signup()
     {
-        return view('auth/Signup');
+        #models goes here
+        $purok_model = new Purok();
+        $barangay_model = new Barangay();
+        $municipality_model = new Municipality();
+        $province_model = new Province();
+
+        $purok = $purok_model->getPurok();
+        $barangay = $barangay_model->getBarangay();
+        $municipality = $municipality_model->getMunicipality();
+        $province = $province_model->getProvince();
+        $address = [
+            'purok' => $purok,
+            'barangay' => $barangay,
+            'municipality' => $municipality,
+            'province' => $province
+        ];
+
+        $data = [
+            'address' => $address
+        ];
+
+        return view('auth/Signup', $data);
     }
 
     public function verify_login()
