@@ -12,7 +12,7 @@
 <body class="overflow-hidden">
     <img class="absolute z-0 blur-sm scale-150 translate-x-11 translate-y-16" src="<?= base_url() ?>images/munisipyobckgrnd.jpg" alt="munisipyo_background.jpg">
     <div class="w-full lg:mt-12 min-h-[550px] grid  justify-center relative z-10">
-        <form id="signup-form" class="bg-background rounded-lg pl-3 pr-3 pt-4 pb-4 w-full flex flex-col items-center lg:gap-6 lg:max-w-[716px] lg:min-w-[720px]" action="register" method="post">
+        <form id="signup-form" class="bg-background rounded-lg pl-3 pr-3 pt-4 pb-4 w-full flex flex-col items-center lg:gap-4 lg:max-w-[716px] lg:min-w-[720px]" action="register" method="post">
             <?= csrf_field() ?>
             <img class="w-[78px]" src="<?= base_url() ?>images/munisipyo.png" alt="munisipyo_logo">
             <!-- Title -->
@@ -20,8 +20,8 @@
                 <div class="text-center">
                     <h1 class="text-2xl">Signup</h1>
                 </div>
-                <div class="min-w-[430px] max-w-[427px] bg-gray-300">
-                    <div id="progress" class=" transition-transform w-[0%] h-3 bg-primary"></div>
+                <div class="rounded-full min-w-[430px] max-w-[427px] bg-gray-300">
+                    <div id="progress" class="rounded-full transition-transform w-[0%] h-3 bg-primary"></div>
                 </div>
             </div>
 
@@ -41,25 +41,24 @@
             </div>
 
             <!-- TAB 2 -->
-            <div id="tab-2" class="hidden opacity-0 transition-opacity duration-300">
-                <h1>Tab 2</h1>
-                <input type="text" name="2">
+            <div id="tab-2" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[250px] lg:max-h-[255px] transition-opacity duration-300">
+
             </div>
 
             <!-- TAB 3 -->
-            <div id="tab-3" class="hidden opacity-0 transition-opacity duration-300">
+            <div id="tab-3" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[250px] lg:max-h-[255px] transition-opacity duration-300">
                 <h1>Tab 3</h1>
                 <input type="text" name="3">
             </div>
 
             <!-- TAB 4 -->
-            <div id="tab-4" class="hidden opacity-0 transition-opacity duration-300">
+            <div id="tab-4" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[250px] lg:max-h-[255px] transition-opacity duration-300">
                 <h1>Tab 4</h1>
                 <input type="text" name="4">
             </div>
             <div class="flex gap-4">
-                <button type="button" id="prev" value="prev" class="bg-primary text-background rounded-lg pt-3 pb-3 pl-2 pr-2">Return</button>
-                <button type="button" id="next" value="next" class="bg-primary text-background rounded-lg pt-3 pb-3 pl-2 pr-2">Next</button>
+                <button type="button" id="prev" value="prev" class="flex justify-between text-text rounded-lg pt-3 pb-3 pl-2 pr-2"><i><-</i> Return</button>
+                <button type="button" id="next" value="next" class="flex justify-between text-text rounded-lg pt-3 pb-3 pl-2 pr-2">Next <i>-></i></button>
             </div>
         </form>
     </div>
@@ -73,7 +72,9 @@
         let next = $('#next');
         let tabs = $("[id^='tab-']");
         let progressBar = $('#progress');
-        let progress = 0;
+        let progress = defaultTab / tabs.length * 100;
+
+        updateProgress(progress);
 
         signForm.on("submit", (event) => {
             event.preventDefault();
