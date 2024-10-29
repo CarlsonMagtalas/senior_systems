@@ -2,11 +2,18 @@
 
 namespace App\Controllers;
 
+#import address models
 use App\Models\Barangay;
 use App\Models\Municipality;
 use App\Models\Province;
-use App\Models\Users;
 use App\Models\Purok;
+
+use App\Models\Disability;
+use App\Models\Blood;
+use App\Models\Religion;
+use App\Models\Education;
+use App\Models\Civil;
+use App\Models\Users;
 
 $db = \Config\Database::connect();
 
@@ -27,7 +34,7 @@ class Auth extends BaseController
 
     public function signup()
     {
-        #models goes here
+        #Address Models here
         $purok_model = new Purok();
         $barangay_model = new Barangay();
         $municipality_model = new Municipality();
@@ -44,8 +51,35 @@ class Auth extends BaseController
             'province' => $province
         ];
 
+        #Health Model here
+        $disability_model = new Disability();
+        $blood_model = new Blood();
+
+        $disabilities = $disability_model->getDisability();
+        $blood = $blood_model->getBlood();
+        $health = [
+            'disabilities' => $disabilities,
+            'blood' => $blood
+        ];
+
+        #Other models
+        $religion_model = new Religion();
+        $educ_model = new Education();
+        $civil_model = new Civil();
+
+        $religion = $religion_model->getReligion();
+        $educ = $educ_model->getEducation();
+        $civil = $civil_model->getCivil();
+        $other = [
+            'religion' => $religion,
+            'education' => $educ,
+            'civil' => $civil 
+        ];
+
         $data = [
-            'address' => $address
+            'address' => $address,
+            'health' => $health,
+            'other' => $other
         ];
 
         return view('auth/Signup', $data);

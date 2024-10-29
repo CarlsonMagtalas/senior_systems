@@ -26,7 +26,7 @@
             </div>
 
             <!-- TAB 1 -->
-            <div id="tab-1" class="flex flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[250px] lg:max-h-[255px] transition-opacity duration-300">
+            <div id="tab-1" class="flex flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[280px] lg:max-h-[275px] transition-opacity duration-300">
                 <!-- Full Name Fields -->
                 <?= view('auth/components/FullName') ?>
                 <!-- Full Name Fields -->
@@ -41,23 +41,31 @@
             </div>
 
             <!-- TAB 2 -->
-            <div id="tab-2" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[250px] lg:max-h-[255px] transition-opacity duration-300">
-                
+            <div id="tab-2" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[280px] lg:max-h-[275px] transition-opacity duration-300">
+                <?= view('auth/components/Health', $health) ?>
             </div>
 
             <!-- TAB 3 -->
-            <div id="tab-3" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[250px] lg:max-h-[255px] transition-opacity duration-300">
-                <h1>Tab 3</h1>
-                <input type="text" name="3">
+            <div id="tab-3" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[280px] lg:max-h-[275px] transition-opacity duration-300">
+                <?= view('auth/components/UserContact', $other) ?>
             </div>
 
             <!-- TAB 4 -->
-            <div id="tab-4" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[250px] lg:max-h-[255px] transition-opacity duration-300">
+            <div id="tab-4" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[280px] lg:max-h-[275px] transition-opacity duration-300">
                 <h1>Tab 4</h1>
                 <input type="text" name="4">
             </div>
+            <!-- TAB 4 -->
+
+            <!-- TAB 5 -->
+            <div id="tab-5" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[280px] lg:max-h-[275px] transition-opacity duration-300">
+                <h1>Tab 5</h1>
+                <input type="text" name="4">
+            </div>
+            <!-- TAB 5 -->
+
             <div class="flex gap-4">
-                <button type="button" id="prev" value="prev" class="flex justify-between text-text rounded-lg pt-3 pb-3 pl-2 pr-2"><i><-</i> Return</button>
+                <button type="button" id="prev" value="prev" class="flex justify-between text-text rounded-lg pt-3 pb-3 pl-2 pr-2"><i><-< /i> Return</button>
                 <button type="button" id="next" value="next" class="flex justify-between text-text rounded-lg pt-3 pb-3 pl-2 pr-2">Next <i>-></i></button>
             </div>
         </form>
@@ -71,6 +79,7 @@
         let prev = $('#prev');
         let next = $('#next');
         let tabs = $("[id^='tab-']");
+        console.log(tabs.length);
         let progressBar = $('#progress');
         let progress = defaultTab / tabs.length * 100;
 
@@ -111,11 +120,11 @@
         function onClick(e) {
             if (e.target.value == 'next') {
                 ++defaultTab;
-                if (defaultTab > 4) {
+                if (defaultTab > tabs.length) {
                     if (confirm('Please make sure all the information provided is correct')) {
                         signForm.submit();
                     } else {
-                        defaultTab = 4;
+                        defaultTab = tabs.length;
                     }
                 } else {
                     $(`#tab-${defaultTab - 1}`).addClass('hidden').removeClass('opacity-150').addClass('opacity-0').hide();
