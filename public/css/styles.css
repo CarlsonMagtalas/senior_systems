@@ -701,12 +701,28 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-rows-1 {
+  grid-template-rows: repeat(1, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .place-items-center {
   place-items: center;
+}
+
+.content-between {
+  align-content: space-between;
 }
 
 .items-center {
@@ -719,6 +735,10 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.gap-1 {
+  gap: 0.25rem;
 }
 
 .gap-3 {
@@ -737,16 +757,20 @@ video {
   gap: 30px;
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
 
-.rounded-lg {
-  border-radius: 0.5rem;
-}
-
 .rounded-full {
   border-radius: 9999px;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .border {
@@ -826,10 +850,6 @@ video {
   text-align: center;
 }
 
-.text-start {
-  text-align: start;
-}
-
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -856,6 +876,10 @@ video {
 
 .font-bold {
   font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .tracking-widest {
@@ -924,6 +948,10 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mb-3 {
+    margin-bottom: 0.75rem;
+  }
+
   .lg\:mt-12 {
     margin-top: 3rem;
   }
@@ -932,12 +960,12 @@ video {
     height: 5rem;
   }
 
-  .lg\:max-h-\[255px\] {
-    max-height: 255px;
-  }
-
   .lg\:max-h-\[25px\] {
     max-height: 25px;
+  }
+
+  .lg\:max-h-\[275px\] {
+    max-height: 275px;
   }
 
   .lg\:max-h-\[50px\] {
@@ -948,8 +976,8 @@ video {
     min-height: 23px;
   }
 
-  .lg\:min-h-\[250px\] {
-    min-height: 250px;
+  .lg\:min-h-\[280px\] {
+    min-height: 280px;
   }
 
   .lg\:min-h-\[45px\] {
@@ -962,6 +990,10 @@ video {
 
   .lg\:min-w-\[255px\] {
     min-width: 255px;
+  }
+
+  .lg\:min-w-\[260px\] {
+    min-width: 260px;
   }
 
   .lg\:min-w-\[414px\] {
@@ -980,8 +1012,16 @@ video {
     max-width: 135px;
   }
 
+  .lg\:max-w-\[255px\] {
+    max-width: 255px;
+  }
+
   .lg\:max-w-\[260px\] {
     max-width: 260px;
+  }
+
+  .lg\:max-w-\[270px\] {
+    max-width: 270px;
   }
 
   .lg\:max-w-\[420px\] {
