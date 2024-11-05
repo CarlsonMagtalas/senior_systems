@@ -930,6 +930,11 @@ video {
   transition-duration: 300ms;
 }
 
+.file\:text-primary::file-selector-button {
+  --tw-text-opacity: 1;
+  color: rgb(1 173 1 / var(--tw-text-opacity));
+}
+
 @media (min-width: 1024px) {
   .lg\:mt-12 {
     margin-top: 3rem;
@@ -1029,6 +1034,10 @@ video {
 
   .lg\:gap-6 {
     gap: 1.5rem;
+  }
+
+  .lg\:gap-10 {
+    gap: 2.5rem;
   }
 
   .lg\:pl-1 {
