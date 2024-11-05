@@ -4,7 +4,7 @@
             <!-- Blood Type -->
             <div>
                 <h2 class="text-lg">Blood Type:</h2>
-                <select class="bg-white lg:pl-1 lg:min-w-[260px] lg:max-w-[270px] lg:min-h-[23px] lg:max-h-[25px] outline outline-1" name="bloodType" id="">
+                <select class="bg-white lg:pl-1 lg:min-w-[260px] lg:max-w-[270px] lg:min-h-[23px] lg:max-h-[25px] outline outline-1" name="bloodType" id="" required>
                     <option value="" hidden>Blood type</option>
                     <?php foreach ($blood as $blood_type): ?>
                     <option value="<?= $blood_type['blood_id'] ?>"><?= $blood_type['blood_type'] ?></option>

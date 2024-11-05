@@ -1,3 +1,7 @@
+<?php
+
+use CodeIgniter\Debug\Toolbar\Collectors\Views;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= base_url() ?>css/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_back" />
     <title>Document</title>
 </head>
 
@@ -52,21 +58,29 @@
 
             <!-- TAB 4 -->
             <div id="tab-4" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[280px] lg:max-h-[275px] transition-opacity duration-300">
-                <h1>Tab 4</h1>
-                <input type="text" name="4">
+                <?= view('auth/components/GuardianName') ?>
             </div>
             <!-- TAB 4 -->
 
             <!-- TAB 5 -->
             <div id="tab-5" class="hidden flex-col justify-between lg:min-w-[580px] lg:max-w-[585px] lg:min-h-[280px] lg:max-h-[275px] transition-opacity duration-300">
-                <h1>Tab 5</h1>
-                <input type="text" name="4">
+                <?= view('auth/components/Images') ?>
             </div>
             <!-- TAB 5 -->
 
             <div class="flex gap-4">
-                <button type="button" id="prev" value="prev" class="flex justify-between text-text rounded-lg pt-3 pb-3 pl-2 pr-2"><i><-< /i> Return</button>
-                <button type="button" id="next" value="next" class="flex justify-between text-text rounded-lg pt-3 pb-3 pl-2 pr-2">Next <i>-></i></button>
+                <button type="button" id="prev" value="prev" class="flex justify-between lg:min-w-[92px] lg:max-w-[88px] bg-primary text-background rounded-lg pt-3 pb-3 pl-2 pr-2">
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                    Return
+                </button>
+                <button type="button" id="next" value="next" class="flex justify-between lg:min-w-[92px] lg:max-w-[88px]; bg-primary text-background rounded-lg pt-3 pb-3 pl-2 pr-2">
+                    Next
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+                    </svg>
+                </button>
             </div>
         </form>
     </div>
@@ -150,8 +164,28 @@
         }
 
         function updateButtonText() {
-            defaultTab == 4 ? next.text('Submit') : next.text('Next');
-            defaultTab == 1 ? prev.text('Return') : prev.text('Back');
+            defaultTab == tabs.length ? next.html(`
+                Submit
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+                    </svg>
+            `) : next.html(`
+                Next
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+                    </svg>
+            `);
+            defaultTab == 1 ? prev.html(`
+                <span class="material-symbols-outlined">
+                    arrow_back
+                </span>
+                Return
+            `) : prev.html(`
+                <span class="material-symbols-outlined">
+                    arrow_back
+                </span>
+                Back
+            `);
         }
 
         next.on('click', onClick);
