@@ -25,6 +25,11 @@ class Auth extends BaseController
         'message' => ''
     ];
 
+    public function moveFiles($file, $fileDestination) {
+        $fileName = $file->getRandomName();
+        $file->move($fileDestination, $fileName);
+    }
+
     public function index() {}
 
     public function login()
@@ -132,10 +137,29 @@ class Auth extends BaseController
         $security = \Config\Services::security();
         $csrf_hash = $security->generateHash();
 
-        $hashedPass = password_hash($formData['password'], PASSWORD_DEFAULT);
-        
+        #declare all files uploaded
+        $id_pic = $this->request->getFile('id_pic');
+        $birth_cert = $this->request->getFile('birth_certificate');
+        $barangay_cert = $this->request->getFile('barangay_certificate');
+
+        #declare their paths
+        $public_path = FCPATH . "uploads/";
+        $private_path = WRITEPATH . "uploads/";
+        $id_path = "{$public_path}id_pic";
+        $birth_path = "{$private_path}birth_certificate";
+        $barangay_path = "{$private_path}barangay_certificate";
+
+        #move the files
+        $this->moveFiles($id_pic, $id_path);
+        $this->moveFiles($birth_cert, $birth_path);
+        $this->moveFiles($barangay_cert, $barangay_path);
+
+        $response['id_pic'] = $id_path;
+        $response['birth_cert'] = $birth_path;
+        $response['barangay_cert'] = $barangay_path;
+
         $response['success'] = true;
-        $response['message'] = $hashedPass;
+        $response['message'] = $formData;
         $response['csrf_test_name'] = $csrf_hash; #return the token
         
         return $this->response->setJSON($response);
