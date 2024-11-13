@@ -69,15 +69,15 @@ use CodeIgniter\Debug\Toolbar\Collectors\Views;
             <!-- TAB 5 -->
 
             <div class="flex gap-4">
-                <button type="button" id="prev" value="prev" class="flex justify-between lg:min-w-[92px] lg:max-w-[88px] bg-primary text-background rounded-lg pt-3 pb-3 pl-2 pr-2">
+                <button type="button" id="prev" value="prev" class="flex justify-between lg:min-w-[92px] lg:max-w-[88px] text-text rounded-lg pt-3 pb-3 pl-2 pr-2">
                     <span class="material-symbols-outlined">
                         arrow_back
                     </span>
                     Return
                 </button>
-                <button type="button" id="next" value="next" class="flex justify-between lg:min-w-[92px] lg:max-w-[88px]; bg-primary text-background rounded-lg pt-3 pb-3 pl-2 pr-2">
+                <button type="button" id="next" value="next" class="flex justify-between lg:min-w-[92px] lg:max-w-[88px]; text-text rounded-lg pt-3 pb-3 pl-2 pr-2">
                     Next
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                    <svg class="text-text" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1D1A06">
                         <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
                     </svg>
                 </button>
@@ -103,27 +103,25 @@ use CodeIgniter\Debug\Toolbar\Collectors\Views;
             event.preventDefault();
             let formData = new FormData(signForm[0]);
 
-            // if ($('#password').val() == $('#con-password').val()) {
-            //     console.log("the passwords match");
-            //     $.ajax({
-            //         url: "signup",
-            //         type: "POST",
-            //         data: formData,
-            //         processData: false,
-            //         contentType: false,
-            //         success: (response) => {
-            //             console.log(response, response.csrf_test_name);
-            //             $('input[name="<?= csrf_token() ?>"]').val(response.csrf_test_name);
-            //         },
-            //         error: (error) => {
-            //             console.log(error);
-            //         },
-            //     });
-            // } else {
-            //     alert("passwords do not match try again");
-            // }
-
-            console.log(formData);
+            if ($('#password').val() == $('#con-password').val()) {
+                console.log("the passwords match");
+                $.ajax({
+                    url: "signup",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: (response) => {
+                        console.log(response, response.csrf_test_name);
+                        $('input[name="<?= csrf_token() ?>"]').val(response.csrf_test_name);
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    },
+                });
+            } else {
+                alert("passwords do not match try again");
+            }
         });
 
         function updateProgress(newProgress) {

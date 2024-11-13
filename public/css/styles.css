@@ -879,6 +879,11 @@ video {
   color: rgb(245 251 242 / var(--tw-text-opacity));
 }
 
+.text-text {
+  --tw-text-opacity: 1;
+  color: rgb(29 26 6 / var(--tw-text-opacity));
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -928,11 +933,6 @@ video {
 
 .duration-300 {
   transition-duration: 300ms;
-}
-
-.file\:text-primary::file-selector-button {
-  --tw-text-opacity: 1;
-  color: rgb(1 173 1 / var(--tw-text-opacity));
 }
 
 @media (min-width: 1024px) {
@@ -1028,16 +1028,16 @@ video {
     max-width: 88px;
   }
 
+  .lg\:gap-10 {
+    gap: 2.5rem;
+  }
+
   .lg\:gap-4 {
     gap: 1rem;
   }
 
   .lg\:gap-6 {
     gap: 1.5rem;
-  }
-
-  .lg\:gap-10 {
-    gap: 2.5rem;
   }
 
   .lg\:pl-1 {
