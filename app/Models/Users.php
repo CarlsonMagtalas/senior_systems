@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class Users extends Model
 {
-    protected $table = 'senior_tbl';
-    protected $allowedFields = [];
+    protected $table = 'request_tbl';
+    protected $allowedFields = ['first_name', 'middle_name', 'last_name', 'extension', 'purok_id', 'barangay_id', 'municipality_id', 'province_id', 'birth_date', 'birth_place','sex', 'citizenship', 'blood_id', 'physical_id', 'health', 'education_id', 'senior_email', 'cell_no', 'guardian_id', 'civil_id', 'religion_id'];
 
     public function getUsers()
     {

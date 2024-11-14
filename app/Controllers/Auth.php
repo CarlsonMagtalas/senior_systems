@@ -25,9 +25,18 @@ class Auth extends BaseController
         'message' => ''
     ];
 
+    public function __construct()
+    {
+
+    }
+
     public function moveFiles($file, $fileDestination) {
         $fileName = $file->getRandomName();
-        $file->move($fileDestination, $fileName);
+        #if the file is valid and it has not been moved
+        if($file->isValid() && !$file->hasMoved()) {
+            $file->move($fileDestination, $fileName);
+        }
+        return $fileName;
     }
 
     public function index() {}
@@ -132,6 +141,8 @@ class Auth extends BaseController
 
     public function verify_signup()
     {
+        $user_model = new Users();
+
         $formData = $this->request->getPost();
 
         $security = \Config\Services::security();
@@ -150,17 +161,26 @@ class Auth extends BaseController
         $barangay_path = "{$private_path}barangay_certificate";
 
         #move the files
-        $this->moveFiles($id_pic, $id_path);
-        $this->moveFiles($birth_cert, $birth_path);
-        $this->moveFiles($barangay_cert, $barangay_path);
+        $id_name = $this->moveFiles($id_pic, $id_path);
+        $birth_name = $this->moveFiles($birth_cert, $birth_path);
+        $barangay_name = $this->moveFiles($barangay_cert, $barangay_path);
 
-        $response['id_pic'] = $id_path;
-        $response['birth_cert'] = $birth_path;
-        $response['barangay_cert'] = $barangay_path;
+        #add additional data to formData
+        $formData['id_pic'] = $id_name;
+        $formData['birth_certificate'] = $birth_name;
+        $formData['barangay_certificate'] = $barangay_name;
+        $formData['guardian_id'] = 1;
 
-        $response['success'] = true;
-        $response['message'] = $formData;
-        $response['csrf_test_name'] = $csrf_hash; #return the token
+        #insert into database
+        $user_id = $user_model->insert($formData);
+
+        if ($user_id) {
+            $response['success'] = true;
+            $response['message'] = $formData;
+            $response['user_id'] = $user_id;
+            $response['csrf_test_name'] = $csrf_hash; #return the token
+        }
+
         
         return $this->response->setJSON($response);
     }
