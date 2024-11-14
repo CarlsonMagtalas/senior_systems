@@ -16,7 +16,7 @@
             <h2 class="text-lg">Suffix:</h2>
             <select class="bg-white lg:pl-1 lg:min-w-[130px] lg:max-w-[135px] lg:min-h-[23px] lg:max-h-[25px] outline outline-1" name="extension" id="extension" required>
                 <option class="" value="" hidden>Extension</option>
-                <option value="">None</option>
+                <option value="none">None</option>
                 <option value="">Jr</option>
                 <option value="">Sr</option>
             </select>
