@@ -2,6 +2,7 @@
 
 use App\Controllers\Auth;
 use App\Controllers\Dashboard;
+use App\Controllers\Emails;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -17,3 +18,6 @@ $routes->post('/auth/signup', [Auth::class, 'verify_signup']);
 
 #dashboard routes
 $routes->get('/dashboard', [Dashboard::class, 'index']);
+
+#testing only
+$routes->get('/email', [Emails::class, 'send']);
