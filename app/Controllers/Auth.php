@@ -15,6 +15,9 @@ use App\Models\Education;
 use App\Models\Civil;
 use App\Models\Users;
 
+#import custom email library
+use App\Libraries\EmailService;
+
 $db = \Config\Database::connect();
 
 class Auth extends BaseController
@@ -25,15 +28,13 @@ class Auth extends BaseController
         'message' => ''
     ];
 
-    public function __construct()
+    public function __construct() {}
+
+    public function moveFiles($file, $fileDestination)
     {
-
-    }
-
-    public function moveFiles($file, $fileDestination) {
         $fileName = $file->getRandomName();
         #if the file is valid and it has not been moved
-        if($file->isValid() && !$file->hasMoved()) {
+        if ($file->isValid() && !$file->hasMoved()) {
             $file->move($fileDestination, $fileName);
         }
         return $fileName;
@@ -87,7 +88,7 @@ class Auth extends BaseController
         $other = [
             'religion' => $religion,
             'education' => $educ,
-            'civil' => $civil 
+            'civil' => $civil
         ];
 
         $data = [
@@ -101,7 +102,7 @@ class Auth extends BaseController
 
     public function verify_login()
     {
-        
+
         $user_model = model(Users::class); #define our user_model
 
         #get the post data
@@ -175,13 +176,22 @@ class Auth extends BaseController
         $user_id = $user_model->insert($formData);
 
         if ($user_id) {
-            $response['success'] = true;
-            $response['message'] = $formData;
-            $response['user_id'] = $user_id;
-            $response['csrf_test_name'] = $csrf_hash; #return the token
+            $email = new EmailService();
+            $subject = "Request for Account";
+            $to = $formData['senior_email'];
+            $message = "Account request successful, please wait for further updates";
+
+            $sent = $email->sendEmail($to, $message, $subject);
+
+            if ($sent == true) {
+                $response['success'] = true;
+                $response['message'] = $formData;
+                $response['user_id'] = $user_id;
+                $response['csrf_test_name'] = $csrf_hash; #return the token
+            }
         }
 
-        
+
         return $this->response->setJSON($response);
     }
 }
